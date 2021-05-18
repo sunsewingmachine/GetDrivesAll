@@ -8,9 +8,19 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ScrollViewer>
-        <TextBlock x:Name="TxtDriveNames" FontSize="30" Text="Null he is my brother" 
-                   HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"></TextBlock>
+
+        <Button x:Name="BtnAlow" 
+                VerticalAlignment="Top"
+                FontSize="32"
+                Tapped="BtnAlow_OnTapped"
+                HorizontalAlignment="Center"
+                Padding="60 10" Margin="0 20"
+                Content="Give Access to file system."></Button>
+
+        <ScrollViewer Margin="0 100 0 0">
+            
+            <TextBlock x:Name="TxtDriveNames" FontSize="30" Text="Null he is my brother" 
+                       HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"></TextBlock>
         </ScrollViewer>
     </Grid>
 </Page>

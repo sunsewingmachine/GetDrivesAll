@@ -46,14 +46,10 @@
   <Capabilities>
     <Capability Name="internetClient" />
     <rescap:Capability Name="broadFileSystemAccess" />
-    
-    
-  
-    <uap:Capability Name="removableStorage" />
-    <iot:Capability Name="systemManagement" />
-
-
+      <uap:Capability Name="removableStorage" />
+      <iot:Capability Name="systemManagement" />
   </Capabilities>
 
 </Package>
+
 <!--<rescap:Capability Name="broadFileSystemAccess" />-->

@@ -28,11 +28,10 @@ namespace GetDrivesAll
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            ShowDrives();
             //ShowDrives2();
         }
 
-        private async  void ShowDrives()
+        private async  Task ShowDrives()
         {
 
             TxtDriveNames.Text = "";
@@ -40,22 +39,30 @@ namespace GetDrivesAll
             
             foreach (DriveInfo d in allDrives)
             {
-                //    Debug.WriteLine("Drive: " + d.Name);
-                //   Debug.WriteLine("Drive: " + d.AvailableFreeSpace);
-                //  Debug.WriteLine("Drive: " + d.TotalSize);
-
+                //Debug.WriteLine("Drive: " + d.Name);
+                //Debug.WriteLine("Drive: " + d.AvailableFreeSpace);
+                //Debug.WriteLine("Drive: " + d.TotalSize);
 
                 AddtoText("Drive: ", d.Name);
                 AddtoText("Drive: ", await ShowDrives2( d.Name));
 
                 //AddtoText("Type: ", d.DriveType);
-                // AddtoText("Space: ", d.AvailableFreeSpace.ToString());
-                //GetTotalSpace();
+                //AddtoText("Space: ", d.AvailableFreeSpace.ToString());
+                // GetTotalSpace();
                 //AddtoText("  Root : {0}", d.RootDirectory);
                 //DriveInfo's RootDirectory.GetDirectories()
                 //DriveInfo's AvailableFreeSpace()
 
-                var mm = await StorageFolder.GetFolderFromPathAsync(d.Name);
+                StorageFolder mm;
+                try
+                {
+                    mm = await StorageFolder.GetFolderFromPathAsync(d.Name);
+                }
+                catch (Exception)
+                {
+                    bool result = await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:privacy-broadfilesystemaccess"));
+                    return;
+                }
 
                 //var kk =  mm.GetResults() ;                
                 //mm = await StorageFolder.GetFolderFromPathAsync(@"C:\Recycle.Bin");
@@ -187,6 +194,13 @@ namespace GetDrivesAll
             return String.Format("{0:0.##} {1}", dblSByte, Suffix[i]);
         }
 
+        private  async void BtnAlow_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            BtnAlow.Content = "wait...";
+            await ShowDrives();
+            BtnAlow.Content = "Allow access";
+
+        }
     }
 }
 
